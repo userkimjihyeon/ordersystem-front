@@ -37,9 +37,9 @@ export default{
     },
     // 화면이 열림과 동시에 실행되는 hook함수 : created
     async created() {
-        const response = await axios.get("http://localhost:8080/product/list");
+        const response = await axios.get("http://localhost:8080/product/list");     // axios 쓰면 try-catch로 감싸서 alert창이라도 띄우기
         console.log(response);
-        this.productList = response.data.result.content;
+        this.productList = response.data.result.content;    //서버 응답(response)에서 data.result.content 위치에 있는 상품 목록 배열을 꺼내서, Vue data()에 정의된 productList에 넣어 v-for로 화면에 표시
     },
     methods: {
         doLogin() {

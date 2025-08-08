@@ -3,8 +3,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import vuetify from './plugins/vuetify';
+import '@mdi/font/css/materialdesignicons.css'
 
 const app = createApp(App);
 
+app.use(vuetify)        //app에다 vuetify를 쓸것임
 app.use(router)         //우리 app 전체에서 router 쓸것임
 app.mount('#app')       //app을 화면에 뿌려줄것임
