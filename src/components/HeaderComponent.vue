@@ -36,8 +36,9 @@ export default {
         }
     },
     methods:{
-        doLogout(){
-
+        doLogout() {
+            localStorage.clear();       // 토큰 삭제
+            window.location.reload();
         }
     },
     created() {
