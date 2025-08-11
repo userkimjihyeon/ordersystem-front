@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { getErrorMessage } from '@/utills/commmonDataHandler';
 import axios from 'axios';
 
 export default{
@@ -57,12 +58,12 @@ export default{
         async memberCreate() {
             try {
                 const data = {name:this.name, email:this.email, password:this.password};    //키값(반드시 서버의 dto명과 일치해야함):화면상의값 //data()에서 정의한 변수들 (v-model로 입력창과 연결됨)
-                await axios.post("http://localhost:8080/member/create", data) 
+                await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`, data) 
                 this.$router.push("/");
             // 에러가 터지는 경우 e변수 안에 서버에서 주는 error메시지가 담김
             } catch(e) {
                 console.log(e);  //최소한 이거라도 달아라
-                alert(e.response.data.status_message);      //status_message : dto에서 정의한 필드
+                alert(getErrorMessage(e));
             }
         },
     },

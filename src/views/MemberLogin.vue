@@ -23,7 +23,7 @@
                             <v-row>
                                 <v-col>
                                     <v-btn color="primary" block @click="memberLogin()">
-                                        등록
+                                        로그인
                                     </v-btn>
                                 </v-col>
                         
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { getErrorMessage, getResultData } from '@/utills/commmonDataHandler';
 import axios from 'axios';
 
 export default{
@@ -51,15 +52,16 @@ export default{
         async memberLogin() {
             try {
             const data = {email:this.email, password:this.password}
-            const response = await axios.post("http://localhost:8080/member/doLogin", data);
-            const accessToken = response.data.result.accessToken;
-            const refreshToken = response.data.result.refreshToken;
+            const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/doLogin`, data);
+            const result = getResultData(response);
+            const accessToken = result.accessToken;
+            const refreshToken = result.refreshToken;
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("refreshToken", refreshToken);
             window.location.href = "/";
             } catch(e) {
                 console.log(e);
-                alert(e.response.data.status_message);
+                alert(getErrorMessage(e));
             }
             
         }
