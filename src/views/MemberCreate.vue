@@ -57,6 +57,7 @@ export default{
     methods: {
         async memberCreate() {
             try {
+                // json 형식으로 전송?
                 const data = {name:this.name, email:this.email, password:this.password};    //키값(반드시 서버의 dto명과 일치해야함):화면상의값 //data()에서 정의한 변수들 (v-model로 입력창과 연결됨)
                 await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`, data) 
                 this.$router.push("/");

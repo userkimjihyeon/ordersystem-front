@@ -23,7 +23,8 @@ export const memberRouter = [
         {
             path: "/member/detail/:id",
             name: "MemberDetailComponent",
-            component: MemberDetailComponent
+            component: MemberDetailComponent,
+            props: {pageTitle: "회원상세정보", isMyPage: false}
         },
         {
             path: "/member/mypage",
