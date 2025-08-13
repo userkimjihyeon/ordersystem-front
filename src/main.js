@@ -6,6 +6,7 @@ import router from './router';
 import vuetify from './plugins/vuetify';
 import '@mdi/font/css/materialdesignicons.css'
 import axios from 'axios';
+import store from './store';
 
 const app = createApp(App);
 
@@ -47,6 +48,7 @@ axios.interceptors.response.use(
     }
 )
 
+app.use(store)          // index.js를 main.js에서 import해서 use하겠다.
 app.use(vuetify)        //app에다 vuetify를 쓸것임
 app.use(router)         //우리 app 전체에서 router 쓸것임
 app.mount('#app')       //app을 화면에 뿌려줄것임

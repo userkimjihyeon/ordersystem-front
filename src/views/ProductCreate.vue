@@ -30,6 +30,9 @@
                                 @change="fileUpload"
                                 multiple
                             />
+                            <!-- accept="image/**" 이미지 파일만 허용
+                                @change="fileUpload" 파일 선택 시 메서드 실행
+                                multiple 여러 장 업로드 가능 -->
                             <v-row>
                                 <v-col>
                                     <v-btn color="primary" block @click="productCreate()">
@@ -61,11 +64,13 @@ export default{
     methods: {
         fileUpload(event) {
             // 여러개의 상품일경우 for문을 실행하여 productImage에 값 할당
+            // 파일 업로드 시 첫 번째 파일을 productImage에 저장
             this.productImage = event.target.files[0];
         },
         async productCreate() {
             try {
                 // multipart-formdata 또는 url인코딩 방식인경우에 FormData클래스 사용해서 객체 조립
+                // 파일 + 데이터 전송을 위한 FormData 생성
                 let data = new FormData();
                 data.append("name", this.name);
                 data.append("category", this.category);

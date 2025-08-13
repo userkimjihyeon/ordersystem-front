@@ -71,13 +71,8 @@
                                     <td v-if="!isAdmin">
                                         <!-- v-text-field: input박스인데 다양한 옵션가능 -->
                                         <!-- input박스는 화면에서 숫자처럼 보여도, 실제 입력값은 문자열 -->
-                                        <v-text-field v-model="product.productCount" type="number" style="width:65px" />
-                                        <!-- v-model.number: 숫자로 형변환
-                                        <v-text-field
-                                        v-model="product.productCount"
-                                        type="number"
-                                        size="width:65px"
-                                        /> -->
+                                        <v-text-field v-model.number="product.productCount" type="number" style="width:65px" />
+                                        <!-- v-model.number: 숫자로 형변환 -->
                                     </td>
                                     <td v-if="!isAdmin">
                                         <!-- 변수 selected에 상품.id 객체를 담는다 -->
@@ -120,6 +115,14 @@ export default {
         window.addEventListener('scroll', this.scrollPaging);
     },
     methods: {
+        addCart() {
+            const orderProductList = this.productList
+                        .filter(p=>p.selected && p.productCount > 0)
+                        .map(p=>({productId:p.id, name:p.name, productCount:p.productCount}));  //name:p.name 상품이름 
+            // cart.js의 actions메서드 호출
+            // "키", 밸류 : 밸류를 orderProductList에서 order를 하나씩 매개변수로 전달
+            orderProductList.forEach(p => this.$store.dispatch("addCart", p));
+        },
         searchProduct() {
             // 변수 초기화 후 loadData() 호출
             this.productList = [];
